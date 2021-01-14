@@ -2,8 +2,8 @@
 Dedicated Rust Game Server in a Docker container
 
 ## Setup
-Change permissions on rust-data folder to 777 so that Steam user within Docker container can read and write data to that directory which will be volumed in.
-This ensures that world and player data is persistent across container restarts
+Change permissions on `rust-data` folder to `777` so that Steam user within Docker container can read and write data to that directory.
+This ensures that world and player data is persistent across container restarts.
 ```
 chmod 0777 rust-data/
 ```
@@ -32,14 +32,17 @@ docker container rm rust-dedicated
 ```
 
 ## Connecting to the sever
-Open up your Rust game client and hit F1 to bring up the console.
+Open up your Rust game client and hit `F1` to bring up the console.
 Enter
 ```
 client.connect {server ip address}:28015
 ```
+If hosting the server on the same machine that is running the client, use `localhost` (127.0.0.1)
 
 ## Acknowledgments
 Thanks to @cm2network's steamcmd docker container
+
 [https://hub.docker.com/r/cm2network/steamcmd/]
+
 [https://github.com/CM2Walki/steamcmd]
 
