@@ -2,13 +2,15 @@
 Dedicated Rust Game Server in a Docker container
 
 ## Setup
-Change permissions on `rust-data` folder to `777` so that Steam user within Docker container can read and write data to that directory.
+1. Change permissions on `rust-data` folder to `777` so that Steam user within Docker container can read and write data to that directory.
 This ensures that world and player data is persistent across container restarts.
 ```
 chmod 0777 rust-data/
 ```
-The container will require and use ports 28015/udp and 28016/(udp & tcp) so make sure to forward those to the host machine.
+2. The container will require and use ports 28015/udp and 28016/(udp & tcp) so make sure to forward those to the host machine.
 Port 28015 is for the game traffic and port 28016 is for the Web RCON management console
+
+3. Change the default placeholder values in [runrust.sh](rust-scripts/runrust.sh) to what you want your server to use.
 
 ## Start the container
 To start the container and then detach (recommended):
