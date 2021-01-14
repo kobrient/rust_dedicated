@@ -1,6 +1,11 @@
 # rust_dedicated
 Dedicated Rust Game Server in a Docker container
 
+## Prerequisites
+1. Docker
+2. Access to [dockerhub](https://hub.docker.com/r/cm2network/steamcmd/) to pull images
+3. Ability to forward ports to the host
+
 ## Setup
 1. Change permissions on `rust-data` folder to `777` so that Steam user within Docker container can read and write data to that directory.
 This ensures that world and player data is persistent across container restarts.
@@ -17,7 +22,9 @@ To start the container and then detach (recommended):
 ```
 docker run -d -p 28015:28015/udp -p 28016:28016/udp -p 28016:28016/tcp -v $(pwd)/rust-data:/home/steam/rust/ -v $(pwd)/rust-scripts:/home/steam/rust-scripts/ --name=rust-dedicated cm2network/steamcmd:root /home/steam/rust-scripts/setup.sh
 ```
-If you want to enter the container interactively for debug:
+The container typically takes 4-5 minutes to spin up so it won't work if you try to connect immediately.
+
+If something goes amiss and you want to enter the container interactively for debug:
 ```
 docker run -it -p 28015:28015/udp -p 28016:28016/udp -p 28016:28016/tcp -v $(pwd)/rust-data:/home/steam/rust/ -v $(pwd)/rust-scripts:/home/steam/rust-scripts/ --name=rust-dedicated cm2network/steamcmd:root bash
 ```
