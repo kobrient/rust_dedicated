@@ -15,29 +15,36 @@ chmod 0777 rust-data/
 2. The container will require and use ports 28015/udp and 28016/(udp & tcp) so make sure to forward those to the host machine.
 Port 28015 is for the game traffic and port 28016 is for the Web RCON management console
 
-3. Change the default placeholder values in [runrust.sh](rust-scripts/runrust.sh) to what you want your server to use.
+3. Change the default placeholder values in [runserver.sh](rust-scripts/runserver.sh) to what you want your server to use.
 
 ## Start the container
-To start the container and then detach (recommended):
+To spin up the container with docker-compose:
 ```
-docker run -d -p 28015:28015/udp -p 28016:28016/udp -p 28016:28016/tcp -v $(pwd)/rust-data:/home/steam/rust/ -v $(pwd)/rust-scripts:/home/steam/rust-scripts/ --name=rust-dedicated cm2network/steamcmd:root /home/steam/rust-scripts/setup.sh
+docker-compose up
+```
+If compose is not available, to start the container manually and then detach:
+```
+docker run -d -p 28015:28015/udp -p 28016:28016/udp -p 28016:28016/tcp -v $(pwd)/rust-data:/home/steam/rust/ -v $(pwd)/rust-scripts:/home/steam/rust-scripts/ --name=rust-dedicated cm2network/steamcmd:root /home/steam/rust-scripts/runserver.sh
 ```
 The container typically takes 4-5 minutes to spin up so it won't work if you try to connect immediately.
 
 If something goes amiss and you want to enter the container interactively for debug:
 ```
-docker run -it -p 28015:28015/udp -p 28016:28016/udp -p 28016:28016/tcp -v $(pwd)/rust-data:/home/steam/rust/ -v $(pwd)/rust-scripts:/home/steam/rust-scripts/ --name=rust-dedicated cm2network/steamcmd:root bash
+docker-compose -f docker-compose.scratch.yml run --service-ports rust-dedicated-scratch
+```
+or
+```
+docker run -it -p 28015:28015/udp -p 28016:28016/udp -p 28016:28016/tcp -v $(pwd)/rust-data:/home/steam/rust/ -v $(pwd)/rust-scripts:/home/steam/rust-scripts/ --name=rust-dedicated-scratch cm2network/steamcmd:root bash
 ```
 
-## Stopping and starting the container
+## Managing the container
+To stop the server, input Ctrl-C from the shell the container is running in OR
 ```
-docker container stop rust-dedicated
-...
-docker container start rust-dedicated
+docker kill --signal="SIGINT" <container-id>
 ```
 To remove the container in case you want to start a new one completely:
 ```
-docker container rm rust-dedicated
+docker container rm <container-id | container-name>
 ```
 
 ## Connecting to the sever

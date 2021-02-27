@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  rust-dedicated-scratch:
+    working_dir: /home/steam/
+    build:
+      context: .
+      dockerfile: Dockerfile.scratch
+    ports:
+      - "28015:28015/udp"
+      - "28106:28016/udp"
+      - "28016:28016/tcp"
+    volumes:
+      - "./rust-data:/home/steam/rust/"
+      - "./rust-scripts:/home/steam/rust-scripts/"
+    stdin_open: true
+    tty: true

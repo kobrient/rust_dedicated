@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  rust-dedicated:
+    working_dir: /home/steam/
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "28015:28015/udp"
+      - "28106:28016/udp"
+      - "28016:28016/tcp"
+    volumes:
+      - "./rust-data:/home/steam/rust/"
+      - "./rust-scripts:/home/steam/rust-scripts/"
