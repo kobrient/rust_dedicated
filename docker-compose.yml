@@ -10,5 +10,6 @@ services:
       - "28106:28016/udp"
       - "28016:28016/tcp"
     volumes:
+      - "/etc/localtime:/etc/localtime:ro"
       - "./rust-data:/home/steam/rust/"
       - "./rust-scripts:/home/steam/rust-scripts/"

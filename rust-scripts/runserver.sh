@@ -109,7 +109,7 @@ run_server() {
             -rcon.ip 0.0.0.0 \
             -rcon.port 28016 \
             -rcon.web 1 \
-            -rcon.password "$server_rcon_password"
+            -rcon.password "$server_rcon_password" &
         fi
 
         server_pid=$!
